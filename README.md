@@ -94,18 +94,19 @@ End-to-end machine learning project to predict customer churn for e-commerce pla
 
 customer-retention-system/
 │
-├─ data/                        # datasets
+├─ data/                       # datasets
 ├─ Notebooks/                   # workflow with preprocessing, modeling, evaluation and SHAP analysis
 ├─ models/                      # Saved models and preprocessing objects
 │   ├─ random_forest_model.pkl
 │   ├─ xgboost_model.pkl
 │   ├─ label_encoders.pkl
-│   └─ ...                    
+│   └─ ...                     
 ├─ deployment/
 │   └─ app.py                   # Streamlit app
 ├─ .gitignore
 ├─ requirements.txt             # Dependencies
 └─ README.md                    # Documentation
+
 
 ## How to Clone and Run the Repository
 
