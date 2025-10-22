@@ -91,7 +91,7 @@ End-to-end machine learning project to predict customer churn for e-commerce pla
 ---
 
 ## Repository Structure
-
+```
 customer-retention-system/
 │
 ├─ data/                       # datasets
@@ -106,7 +106,7 @@ customer-retention-system/
 ├─ .gitignore
 ├─ requirements.txt             # Dependencies
 └─ README.md                    # Documentation
-
+```
 
 ## How to Clone and Run the Repository
 
