@@ -4,9 +4,7 @@ import joblib
 import shap
 import matplotlib.pyplot as plt
 
-# -------------------------------
-# Load Models and Preprocessors
-# -------------------------------
+# Loading Models
 rf_model = joblib.load("models/random_forest_model.pkl")
 xgb_model = joblib.load("models/xgboost_model.pkl")
 label_encoders = joblib.load("models/label_encoders.pkl")
@@ -16,9 +14,7 @@ models = {
     "XGBoost": xgb_model
 }
 
-# -------------------------------
-# Preprocessing Function
-# -------------------------------
+# Preprocessing
 def preprocess_input(df):
     df_proc = df.copy()
     
@@ -33,17 +29,13 @@ def preprocess_input(df):
     return df_proc
 
 
-# -------------------------------
 # Prediction Function
-# -------------------------------
 def predict_churn(model, df):
     preds = model.predict(df)
     probs = model.predict_proba(df)[:,1] if hasattr(model, "predict_proba") else None
     return preds, probs
 
-# -------------------------------
-# Streamlit App
-# -------------------------------
+# Streamlit Interface
 st.title("Customer Churn Prediction App")
 st.write("Enter customer details to predict churn probability.")
 
@@ -51,7 +43,7 @@ st.write("Enter customer details to predict churn probability.")
 model_name = st.selectbox("Select Model", list(models.keys()))
 model = models[model_name]
 
-# --- Columns for input features ---
+# Columns for input features
 col1, col2 = st.columns(2)
 
 with col1:
@@ -77,7 +69,7 @@ with col2:
     days_since_last_order = st.number_input("Days Since Last Order", min_value=0, max_value=365, value=30)
     cashback = st.number_input("Cashback Amount", min_value=0, max_value=10000, value=100)
 
-# Collect input
+# Collecting input
 input_df = pd.DataFrame({
     "Tenure": [tenure],
     "PreferredLoginDevice": [login_device],
@@ -99,11 +91,12 @@ input_df = pd.DataFrame({
     "CashbackAmount": [cashback]
 })
 
+# Prediction
 if st.button("Predict Churn"):
     processed_input = preprocess_input(input_df)
     prediction, probability = predict_churn(model, processed_input)
     
-    # Color-coded result
+    # Result Display
     st.subheader("Prediction Result")
     if prediction[0] == 1:
         st.markdown("<span style='color:red; font-size:20px;'>Customer will churn!</span>", unsafe_allow_html=True)
